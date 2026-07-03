@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+blocked=0
+
+if git diff --cached --name-only | grep -qx '\.env'; then
+  echo "BLOCKED: .env is staged for commit. Run: git restore --staged .env"
+  blocked=1
+fi
+
+pattern='xai-[A-Za-z0-9]{15,}|sk-surf-[A-Za-z0-9]{15,}|nsn_[A-Za-z0-9]{15,}|AAAAAAAAAAAAAAAAAAAAA[A-Za-z0-9%]{15,}'
+hits="$(git diff --cached -U0 | grep -inE "$pattern" || true)"
+if [ -n "$hits" ]; then
+  echo "BLOCKED: staged changes look like a real API key:"
+  echo "$hits"
+  blocked=1
+fi
+
+if [ "$blocked" -eq 1 ]; then
+  echo ""
+  echo "Commit blocked by pre-commit secret scan. Remove the secret and try again."
+  exit 1
+fi

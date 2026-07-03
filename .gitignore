@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.pyc
+data/runs/*.json
+content_research/*.md
+service_research/*.md
+outputs/
+.DS_Store
+.venv/
