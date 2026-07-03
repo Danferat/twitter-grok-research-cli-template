@@ -101,7 +101,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     surf_ask = subparsers.add_parser(
         "surf-ask",
-        help="Codex-facing Surf workflow: ask a natural crypto/on-chain question and print a readable answer.",
+        help="Agent-facing Surf workflow: ask a natural crypto/on-chain question and print a readable answer.",
     )
     surf_ask.add_argument("question", help="Natural-language crypto research question.")
     surf_ask.add_argument("--model", default="surf-2.0", help="Surf Chat API model.")
@@ -144,7 +144,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     nansen_ask = subparsers.add_parser(
         "nansen-ask",
-        help="Codex-facing Nansen workflow: ask a natural on-chain question and print a readable answer.",
+        help="Agent-facing Nansen workflow: ask a natural on-chain question and print a readable answer.",
     )
     nansen_ask.add_argument("question", help="Natural-language on-chain question from the user.")
     nansen_ask.add_argument(
